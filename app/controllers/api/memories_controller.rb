@@ -1,7 +1,7 @@
 module Api
   class MemoriesController < ApplicationController
     def index
-      memories = Memory.find_each { |memory| serialized_memory(memory) }
+      memories = Memory.all.map { |memory| serialized_memory(memory) }
       render json: memories
     end
 
