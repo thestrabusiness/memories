@@ -26,7 +26,7 @@ module Api
     end
 
     def serialized_memory(memory)
-      images = memory.images.map(&:service_url)
+      images = memory.images.map {|image| url_for(image)}
       memory_without_images = memory.as_json
       memory_without_images.merge({images: images})
     end
