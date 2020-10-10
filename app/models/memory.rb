@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class Memory < ApplicationRecord
-  has_many_attached :images
+  has_many_base64_attached :images
 
   validate :at_least_image_or_description?
 

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Api
   class MemoriesController < ApplicationController
     def index
@@ -22,14 +24,13 @@ module Api
     private
 
     def memory_params
-      params.require(:memory).permit(:description, images: [])
+      params.require(:memory).permit(:description, images: [:data])
     end
 
     def serialized_memory(memory)
-      images = memory.images.map {|image| url_for(image)}
+      images = memory.images.map { |image| url_for(image) }
       memory_without_images = memory.as_json
-      memory_without_images.merge({images: images})
+      memory_without_images.merge({ images: images })
     end
   end
 end
-
