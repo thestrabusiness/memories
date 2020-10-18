@@ -3,6 +3,9 @@
 class Memory < ApplicationRecord
   has_many_base64_attached :images
 
+  belongs_to :user
+
+  validates :user, presence: true
   validate :at_least_image_or_description?
 
   private
