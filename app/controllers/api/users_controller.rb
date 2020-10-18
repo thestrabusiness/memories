@@ -5,10 +5,14 @@ module Api
     skip_before_action :authenticate
 
     def create
-      user = User.new(user_params)
+      user = User.find_or_create_by(phone_number: params[:phone_number])
 
-      if user.save
-        # send the sms
+      if user.persisted?
+        TWILIO_CLIENT.messages.create(
+          from: '+15866973461',
+          to: user.phone_number,
+          body: "Here's your Memories PIN: #{user.pin}"
+        )
         head :created
       else
         render json: user.errors, status: :unprocessible_entity

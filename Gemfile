@@ -7,9 +7,11 @@ ruby '2.7.1'
 
 gem 'active_storage_base64'
 gem 'bootsnap', '>= 1.4.2', require: false
+gem 'dotenv-rails'
 gem 'pg', '>= 0.18', '< 2.0'
 gem 'puma', '~> 4.1'
 gem 'rails', '~> 6.0.3', '>= 6.0.3.2'
+gem 'twilio-ruby'
 
 group :development, :test do
   gem 'byebug', platforms: %i[mri mingw x64_mingw]
