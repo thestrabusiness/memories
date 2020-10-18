@@ -3,17 +3,17 @@
 module Api
   class MemoriesController < ApplicationController
     def index
-      memories = Memory.all.map { |memory| serialized_memory(memory) }
+      memories = current_user.memories.map { |memory| serialized_memory(memory) }
       render json: memories
     end
 
     def show
-      memory = Memory.find(params[:id])
+      memory = current_user.memories.find(params[:id])
       render json: serialized_memory(memory)
     end
 
     def create
-      memory = Memory.create(memory_params)
+      memory = current_user.memories.create(memory_params)
       if memory.valid?
         render json: serialized_memory(memory)
       else
