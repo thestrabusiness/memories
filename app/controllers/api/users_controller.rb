@@ -5,7 +5,7 @@ module Api
     skip_before_action :authenticate
 
     def create
-      user = User.find_or_create_by(phone_number: params[:phone_number])
+      user = User.find_or_create_by(user_params)
 
       if user.persisted?
         TWILIO_CLIENT.messages.create(
@@ -15,8 +15,14 @@ module Api
         )
         head :created
       else
-        render json: user.errors, status: :unprocessible_entity
+        head :unprocessable_entity
       end
+    end
+
+    private
+
+    def user_params
+      params.require(:user).permit(:phone_number)
     end
   end
 end
